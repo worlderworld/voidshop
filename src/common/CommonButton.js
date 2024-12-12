@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
-const CommonButton = ({ onPress, title, bgColor, textColor }) => {
+const CommonButton = ({ onPress, title, bgColor, textColor,disabled }) => {
     return (
-        <TouchableOpacity style={{
+        <TouchableOpacity
+        disabled={disabled}
+         style={{
             backgroundColor: bgColor,
             justifyContent: 'center',
             alignItems: 'center',
