@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import CustomTextInput from '../common/CustomTextInput'
 import CommonButton from '../common/CommonButton'
 import { useNavigation } from '@react-navigation/native'
-import { useAsyncStorage, } from '@react-native-async-storage/async-storage';
+//import { useAsyncStorage, } from '@react-native-async-storage/async-storage';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 let isValid = true;
@@ -20,9 +21,11 @@ const Signup = () => {
     const [badConfirmPassword, setBadConfirmPassword] = useState(false)
     const [mobile, setMobile] = useState('')
     const [badMobile, setBadMobile] = useState(false)
+    const [buttonDisabled, setButonDisabled] = useState(false)
 
     const validate = () => {
-     
+        setButonDisabled(true)
+
 
         if (name == '') {
             setbadName(true)
@@ -40,74 +43,82 @@ const Signup = () => {
                 if (mobile == '') {
                     setBadMobile(true)
                     isValid = false
-        
+
                 }
                 else if (mobile.length < 10) {
                     setBadMobile(true)
                     isValid = false
-        
+
                 }
                 else {
                     setBadMobile(false)
                     if (password == '') {
                         setBadPassword(true)
                         isValid = false
-            
+
                     }
-            
+
                     else {
                         setBadPassword(false)
                         if (confirmPassword == '') {
                             setBadConfirmPassword(true)
                             isValid = false
-                
+
                         }
                         else {
                             setBadConfirmPassword(false)
-                            
-        if (password !== confirmPassword) {
-            setBadConfirmPassword(true)
-            isValid = false
 
-        }
-        else {
-            setBadConfirmPassword(false)
-            saveData()
+                            if (password !== confirmPassword) {
+                                setBadConfirmPassword(true)
+                                isValid = false
 
-        }
+                            }
+                            else {
+                                setBadConfirmPassword(false)
+
+
+                            }
+                            setTimeout(() => {
+                                console.log(isValid)
+                                if (
+                                  isValid==true) {
+                                    saveData()
+                                }
+                                else {
+                                    setButonDisabled(false)
+                                }
+                            }, 3000)
+
                         }
+
                     }
                 }
             }
         }
-
- //hello worlderworld
-
-
-        // setTimeout(()=>{
-
-
-        //     saveData()
-        // },3000)
-      
     }
 
+    //hello worlderworld
+
+
+
+
     const saveData = async () => {
-        // if (
-        //     badName == false && !badEmail == false && badMobile == false && badPassword == false && badConfirmPassword == false) {
-        //     await AsyncStorage.setItem('NAME', name)
-        //     await AsyncStorage.setItem('EMAIL', email)
-        //     await AsyncStorage.setItem('MOBILE', mobile)
-        //     await AsyncStorage.setItem('PASSWORD', password)
-        //     // console.log("yes")
-            //navigation.goBack()
-            navigation.navigate('Login')
-       // }
+        {
+            await AsyncStorage.setItem('NAME', name)
+            await AsyncStorage.setItem('EMAIL', email)
+            await AsyncStorage.setItem('MOBILE', mobile)
+            await AsyncStorage.setItem('PASSWORD', password)
+
+            console.log("ys")
+            navigation.goBack()
+            // navigation.navigate('Login')
+        }
     }
 
     return (
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} >
             <View style={{ flex: 1 }}>
+
                 <Image style={styles.images} source={require('../Images/shipping.png')} ></Image>
                 <Text style={styles.login}>Sign Up</Text>
 
@@ -192,8 +203,10 @@ const Signup = () => {
                     )
                 }
 
-                <CommonButton title={'Signup'} bgColor={'#000'} textColor={'#fff'}
-                    onPress={() => { validate() }} />
+                <CommonButton title={'Signup'} bgColor={buttonDisabled ? '#8e8e8e' : '#000'} textColor={'#fff'}
+                    onPress={() => { validate() }}
+                    disabled={buttonDisabled} />
+
                 <Text style={{
                     fontSize: 18,
                     fontWeight: '800',
