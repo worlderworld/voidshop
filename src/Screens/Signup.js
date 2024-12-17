@@ -29,32 +29,42 @@ const Signup = () => {
 
         if (name == '') {
             setbadName(true)
-            isValid = false
+            setButonDisabled(false)
+
+       
 
         }
         else {
             setbadName(false)
             if (email == '') {
                 setBadEmail(true)
-                isValid = false
+                setButonDisabled(false)
+
+                
             }
             else {
                 setBadEmail(false)
                 if (mobile == '') {
                     setBadMobile(true)
-                    isValid = false
+                    setButonDisabled(false)
+
+                   
 
                 }
                 else if (mobile.length < 10) {
                     setBadMobile(true)
-                    isValid = false
+                    setButonDisabled(false)
+
+                  
 
                 }
                 else {
                     setBadMobile(false)
                     if (password == '') {
                         setBadPassword(true)
-                        isValid = false
+                        setButonDisabled(false)
+
+                      
 
                     }
 
@@ -62,7 +72,9 @@ const Signup = () => {
                         setBadPassword(false)
                         if (confirmPassword == '') {
                             setBadConfirmPassword(true)
-                            isValid = false
+                            setButonDisabled(false)
+
+                           
 
                         }
                         else {
@@ -70,24 +82,19 @@ const Signup = () => {
 
                             if (password !== confirmPassword) {
                                 setBadConfirmPassword(true)
-                                isValid = false
+                                setButonDisabled(false)
+
+                               
 
                             }
                             else {
                                 setBadConfirmPassword(false)
 
 
+                            saveData()
                             }
-                            setTimeout(() => {
-                                console.log(isValid)
-                                if (
-                                  isValid==true) {
-                                    saveData()
-                                }
-                                else {
-                                    setButonDisabled(false)
-                                }
-                            }, 3000)
+
+                          
 
                         }
 

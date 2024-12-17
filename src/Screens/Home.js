@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import Loader from '../common/Loader'
 
 const Home = () => {
   return (
     <View>
-      <Text>Home</Text>
+  <Text>"satyam"</Text>
     </View>
   )
 }
