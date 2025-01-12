@@ -8,6 +8,7 @@ import {addItemToCart, addToWishlist} from '../redux/actions/Actions';
 
 
 const Main = () => {
+  
 
   const dispatch = useDispatch();
   const [categoryList, setCategoryList] = useState([]);
